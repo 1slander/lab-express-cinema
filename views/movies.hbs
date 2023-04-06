@@ -1,0 +1,11 @@
+<h1>{{title}}</h1>
+
+<h3>Click on the movie to check the showtimes!</h3>
+
+{{#each movies}}
+  <div class="card">
+    <img src="{{this.image}}" alt="Film poster" />
+    <h4>{{this.title}}</h4>
+    <a href="/movies/{{this._id}}">See more</a>
+  </div>
+{{/each}}

@@ -1,7 +1,7 @@
 // bin/seeds.js
 
 const mongoose = require("mongoose");
-const Movies = require("../models/Movie.model");
+const Movies = require("../models/Movie.model.js");
 
 const MONGO_URI =
   process.env.MONGODB_URI || "mongodb://localhost/express-cinema-lab";
