@@ -2,6 +2,19 @@ const express = require("express");
 const router = express.Router();
 
 const MovieModel = require("../models/Movie.model");
+
+// Create movie
+
+router.get("/create-movies", (req, res) => res.render("create-movies"));
+router.post("/create-movie", (req, res) => {
+  const newMovie = req.body;
+  newMovie.stars = ["1", "2"];
+  newMovie.showtimes = ["1pm", "5pm"];
+  MovieModel.create(newMovie)
+    .then(() => res.render("success"))
+    .catch((err) => console.log(err));
+});
+
 /* GET movies page */
 router.get("/movies", (req, res, next) => {
   MovieModel.find()
@@ -26,6 +39,38 @@ router.get("/movies/:movieId", (req, res, next) => {
     .catch((error) => {
       console.log("Error while getting the movies from the DB: ", error);
     });
+});
+
+//Delete
+
+router.post("/movies/:movieId/delete", async (req, res) => {
+  const { movieId } = req.params;
+  await MovieModel.findByIdAndDelete(movieId)
+    .then(() => {
+      res.render("success");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+//Update
+
+router.get("/movies/:movieId/edit", (req, res) => {
+  const { movieId } = req.params;
+  MovieModel.findById(movieId)
+    .then((movieToEdit) => {
+      res.render("movie-edit", { movie: movieToEdit });
+    })
+    .catch((err) => console.log(err));
+});
+
+router.post("/movies/:movieId/edit", (req, res) => {
+  const { movieId } = req.params;
+  const editedMovie = req.body;
+  MovieModel.findByIdAndUpdate(movieId, editedMovie)
+    .then(() => res.render("success"))
+    .catch((err) => console.log(err));
 });
 
 module.exports = router;

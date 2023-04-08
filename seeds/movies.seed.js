@@ -2,6 +2,7 @@
 
 const mongoose = require("mongoose");
 const Movies = require("../models/Movie.model.js");
+//connect to db = const db = require("../db/index")
 
 const MONGO_URI =
   process.env.MONGODB_URI || "mongodb://localhost/express-cinema-lab";

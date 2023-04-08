@@ -7,5 +7,9 @@
     <img src="{{this.image}}" alt="Film poster" />
     <h4>{{this.title}}</h4>
     <a href="/movies/{{this._id}}">See more</a>
+    <a href="/movies/{{this._id}}/edit">Edit Movie</a>
+    <form action="/movies/{{this._id}}/delete" method="post">
+      <input type="submit" value="Delete" />
+    </form>
   </div>
 {{/each}}
